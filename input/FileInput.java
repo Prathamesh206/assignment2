@@ -1,12 +1,17 @@
 package in.sts.assignment2.input;
 
+import java.util.Scanner;
+
 public class FileInput {
 	/*
 	 * getJsonFile Method for JSON File Input
 	 * 
 	 */
-	public String getJsonFile() {
-		return null;
+	public String getJsonFilePath() {
+		
+		String jsonFilePath="F:\\Data.json";
+		
+		return jsonFilePath;
 		
 	}
 	
@@ -15,9 +20,10 @@ public class FileInput {
 	 * 
 	 */
 	
-	public String getExcelFile() {
+	public String getExcelFilePath() {
+		String excelFilePath="F:\\excel.xls";
 		
-		return null;
+		return excelFilePath;
 		
 	}
 	
@@ -26,13 +32,13 @@ public class FileInput {
 	 */
 	
 	public String getJob() {
-		return null;
+		@SuppressWarnings("resource")
+		Scanner scanner=new Scanner(System.in);
+		System.out.println("Which Profile You Want To See By Job  ");
+		String job=scanner.nextLine();
+		
+		return job;
 		
 	}
-	
-	
-	
-	
-
 
 }
