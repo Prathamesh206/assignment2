@@ -8,46 +8,70 @@ public class Employee {
 	private String city;
 	private ArrayList<String> education ;
 	private String job;
-	
+
+	public Employee() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
-	
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getCity() {
 		return city;
 	}
-	
+
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	public ArrayList<String> getEducation() {
 		return education;
 	}
-	
+
 	public void setEducation(ArrayList<String> education) {
 		this.education = education;
 	}
-	
+
 	public String getJob() {
 		return job;
 	}
-	
+
 	public void setJob(String job) {
 		this.job = job;
 	}
-	
+
+	public Employee(String firstName, String lastName, String city, ArrayList<String> education,String job ) {
+
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.city = city;
+		this.education = education;
+		this.job = job;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Employee [firstName=" + firstName + ", lastName=" + lastName + ", city=" + city + ", education="
+				+ education + ", job=" + job + "]";
+	}
+
 
 }
