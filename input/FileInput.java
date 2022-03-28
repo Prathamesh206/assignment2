@@ -1,8 +1,9 @@
-package in.sts.assignment2.input;
+ppackage in.sts.assignment2.input;
 
 import java.util.Scanner;
 
 public class FileInput {
+	
 	/*
 	 * getJsonFile Method for JSON File Input
 	 * 
@@ -15,17 +16,21 @@ public class FileInput {
 		
 	}
 	
+	
 	/*
 	 * getExcelFile Method for Excel File Input
 	 * 
 	 */
 	
 	public String getExcelFilePath() {
-		String excelFilePath="F:\\excel.xls";
+		
+		String excelFilePath="F:\\mmv.xls";
 		
 		return excelFilePath;
 		
 	}
+	
+	
 	
 	/*
 	 * getJob Method for job as Input From User
@@ -36,6 +41,7 @@ public class FileInput {
 		Scanner scanner=new Scanner(System.in);
 		System.out.println("Which Profile You Want To See By Job  ");
 		String job=scanner.nextLine();
+		scanner.close();
 		
 		return job;
 		
