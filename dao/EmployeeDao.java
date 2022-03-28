@@ -46,7 +46,9 @@ public class EmployeeDao {
 	
 	/*
 	 *
-	 *  getEmployeeDetails  method  showing the all the details of employee from the firstname and lastname fetch the empid and 
+	 *  getEmployeeDetails  method  fetch  all the details of employee from the firstname and lastname  and add  empid in the  employee and add in the employeeAllDetails 
+	 ArrayList pass to the eductionDao
+	 
 	 * 
 	 * 
 	 */
