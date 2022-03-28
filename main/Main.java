@@ -23,10 +23,7 @@ public class Main {
 	public static void main(String[] args)  {
 		BasicConfigurator.configure();
 		boolean result=false;
-		/*
-		 * 
-		 * Creating Classes Object used in the operation
-		 */
+		
 
 		EmployeeDao employeeDao=new EmployeeDao();
 		ConsoleOutput consoleOutput=new ConsoleOutput();
@@ -44,14 +41,18 @@ public class Main {
 		 * 
 		 */
 
-		fileWriter.excelFileWriter(employeeList,fileInput.getExcelFilePath());                  
+		fileWriter.excelFileWriter(employeeList,fileInput.getExcelFilePath());  
+//    ..................................................End.......................................................................................................
 
 		/*
 		 * Second Operation for taking the job as input from user and display the profile which matching to that job in the display in the console
 		 *   
 		 */
 
-		consoleOutput.displayFilterJobList(filterJob.getFilterJobList(fileInput.getJob(),employeeList));     
+		consoleOutput.displayFilterJobList(filterJob.getFilterJobList(fileInput.getJob(),employeeList));   
+		
+		
+//    ..................................................End.......................................................................................................
 		/*
 		 * Third Operation is Database operation 
 		 * 1) First Operation is for storing the employee Data in the Database
@@ -63,6 +64,7 @@ public class Main {
 
 		}
 		consoleOutput.displayInsertion(result);
+//    ..................................................End.......................................................................................................
 
 		/* 
 		 *  
