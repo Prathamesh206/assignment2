@@ -25,10 +25,7 @@ public class Filter {
 			
 		}
 
-		if(!empList.contains(job)) {                                                 //if User Job Input not equals empList then these condition become true
-			System.out.println("JobProfile Not Found");
-			
-		}
+		
 
 		return employeeList;                                                        
 	}
