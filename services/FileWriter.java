@@ -62,7 +62,7 @@ public class FileWriter {
 		try {
 			File file=new File(excelFilePath);                                         //taking file path
 			FileOutputStream outputStream=new FileOutputStream(file);
-			workBook.write(outputStream);                                    //stored the all the information in that file
+			workBook.write(outputStream);                                    //write  all the information in the excelfile
 
 
 			System.out.println("SusccesFully");
