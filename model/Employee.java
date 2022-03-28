@@ -3,6 +3,7 @@ package in.sts.assignment2.model;
 import java.util.ArrayList;
 
 public class Employee {
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String city;
@@ -12,6 +13,18 @@ public class Employee {
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
@@ -58,6 +71,18 @@ public class Employee {
 
 	public Employee(String firstName, String lastName, String city, ArrayList<String> education,String job ) {
 
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.city = city;
+		this.education = education;
+		this.job = job;
+	}
+
+
+
+	public Employee(int id, String firstName, String lastName, String city, ArrayList<String> education, String job) {
+		
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.city = city;
