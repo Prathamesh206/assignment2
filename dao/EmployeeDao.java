@@ -15,6 +15,11 @@ import in.sts.assignment2.model.Employee;
 public class EmployeeDao {
 	final static Logger log=Logger.getLogger(EmployeeDao.class);
 	
+	final int FirstName=1;
+	final int LastName=2;
+	final int City =3;
+        final int Job=4;
+	
 	Connection connection=DBConnection.getConnection();
 	
 	/* 
@@ -26,10 +31,10 @@ public class EmployeeDao {
 		String query="insert into employee_data  values(id,?,?,?,?)";
 		try {
 			PreparedStatement employeeStatment=connection.prepareStatement(query);
-		   employeeStatment.setString(1, firstname);
-		   employeeStatment.setString(2, lastname);
-		   employeeStatment.setString(3, city);
-		   employeeStatment.setString(4, job);
+		   employeeStatment.setString(FirstName, firstname);
+		   employeeStatment.setString(LastName, lastname);
+		   employeeStatment.setString(City, city);
+		   employeeStatment.setString(Job, job);
 		   int i=employeeStatment.executeUpdate();
 		   if(i>0) {
 			   return true;
@@ -61,8 +66,8 @@ public class EmployeeDao {
 			 
 			PreparedStatement preparedStatement=connection.prepareStatement(query);       
 			for(Employee employee:jsonEmployeeList) {
-				preparedStatement.setString(1, employee.getFirstName());
-				preparedStatement.setString(2, employee.getLastName());
+				preparedStatement.setString(FirstName, employee.getFirstName());
+				preparedStatement.setString(LastName, employee.getLastName());
 				ResultSet result=preparedStatement.executeQuery();
 				while(result.next()) {
 					int empId=result.getInt("id");                        
