@@ -12,7 +12,7 @@ public class Filter {
 	@SuppressWarnings("unlikely-arg-type")
 	public ArrayList<String> getFilterJobList(String job,ArrayList<Employee> empList){
 
-
+               boolean result=false;
 		ArrayList<String> employeeList=new ArrayList<String>();                     //EmployeList For  Storing employee who's job is match the job taking from user
 		for(Employee employee:empList){                                             //iterating empList 
 			
@@ -20,11 +20,13 @@ public class Filter {
 				String firstName=employee.getFirstName();                             //get the employee firstName 
 				String lastName=employee.getLastName();                               //get the employee LastName
 				employeeList.add(firstName+" "+lastName);                             //concat the firstName And lastName and stored in the employeeList
-				
+				result=true;
 			}
 			
 		}
-
+		if(result==false){
+			System.out.println("JobProfile Not Found");
+		}
 		
 
 		return employeeList;                                                        
