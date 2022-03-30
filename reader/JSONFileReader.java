@@ -10,8 +10,8 @@ import org.json.simple.parser.ParseException;
 
 import in.sts.assignment2.model.Employee;
 
-public class FileReader {
-	final static Logger log=Logger.getLogger(FileReader.class);
+public class JSONFileReader {
+	final static Logger log=Logger.getLogger(JSONFileReader.class);
 	/*
 	 * getEmployeList Method For Read The employee Details from JSON File
 	 * 
@@ -19,6 +19,7 @@ public class FileReader {
 	 */
 
 	public static ArrayList<Employee> getEmployeeList(String jsonFilepath){
+	
 		ArrayList<Employee> employeeList=new ArrayList<Employee>();                   // employeeList For Storing The Employees 
 
 		JSONParser jsonParser=new JSONParser();                                       //JSONParser Object is creating for parse the JSON  File object 
@@ -36,10 +37,11 @@ public class FileReader {
 				@SuppressWarnings("unchecked")
 				ArrayList<String> educationArray=(ArrayList<String>) employe.get("education");    //educations in ArrayList
 
-				Employee employee=new Employee(firstName,lastName,city,educationArray,job);    //creating employee object and stored the all the value in it
+				Employee employee=new Employee(firstName,lastName,city,educationArray,job);
+				                                                                             //creating employee object and stored the all the value in it
 				
-				employeeList.add(employee);                                                    //add all employee in arraylist
-
+				employeeList.add(employee);                                              //add all employee in arraylist
+                fileReader.close();
 			}
 		
 
@@ -49,6 +51,8 @@ public class FileReader {
 			log.error("Cannot Read File Properly");
 		}catch(ParseException parseException) {
 			log.error("Cannot parse the Object");
+		}finally {
+			
 		}
 		return employeeList;
 
