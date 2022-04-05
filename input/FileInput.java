@@ -1,6 +1,4 @@
-ppackage in.sts.assignment2.input;
-
-import java.util.Scanner;
+package in.sts.assignment2.input;
 
 import java.util.Scanner;
 
@@ -25,12 +23,8 @@ public class FileInput {
 	 */
 	
 	public String getExcelFilePath() {
-<<<<<<< Updated upstream
 		
 		String excelFilePath="F:\\mmv.xls";
-=======
-		String excelFilePath="F:\\excel.xls";
->>>>>>> Stashed changes
 		
 		return excelFilePath;
 		
@@ -47,10 +41,7 @@ public class FileInput {
 		Scanner scanner=new Scanner(System.in);
 		System.out.println("Which Profile You Want To See By Job  ");
 		String job=scanner.nextLine();
-<<<<<<< Updated upstream
 		scanner.close();
-=======
->>>>>>> Stashed changes
 		
 		return job;
 		
