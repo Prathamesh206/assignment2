@@ -42,7 +42,7 @@ public class EducationDao {
 				return true;
 			
 			}
-			connection.commit();
+			
 		}  
 		
 	
