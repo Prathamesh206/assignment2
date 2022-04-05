@@ -7,12 +7,19 @@ import java.util.ArrayList;
 
 import org.apache.log4j.BasicConfigurator;
 
+<<<<<<< Updated upstream
 import in.sts.assignemt2.dao.EducationDao;
 import in.sts.assignemt2.dao.EmployeeDao;
 import in.sts.assignment2.input.FileInput;
 import in.sts.assignment2.model.Employee;
 import in.sts.assignment2.output.ConsoleOutput;
 import in.sts.assignment2.reader.JSONFileReader;
+=======
+import in.sts.assignment2.input.FileInput;
+import in.sts.assignment2.model.Employee;
+import in.sts.assignment2.output.ConsoleOutput;
+import in.sts.assignment2.reader.FileReader;
+>>>>>>> Stashed changes
 
 import in.sts.assignment2.services.FileWriter;
 import in.sts.assignment2.services.Filter;
@@ -22,6 +29,7 @@ public class Main {
 	@SuppressWarnings("static-access")
 	public static void main(String[] args)  {
 		BasicConfigurator.configure();
+<<<<<<< Updated upstream
 		boolean result=false;
 		
 
@@ -81,5 +89,28 @@ public class Main {
 
 
 
+=======
+		
+		ConsoleOutput consoleOutput=new ConsoleOutput();
+		FileReader fileReader=new FileReader();
+		FileInput fileInput=new FileInput();
+		Filter filterJob=new Filter();
+		FileWriter fileWriter=new FileWriter();
+		
+		ArrayList<Employee> employeeList= fileReader.getEmployeeList(fileInput.getJsonFilePath());    //Stored employees in employeeList ArrayList
+		
+	    fileWriter.excelFileWriter(employeeList,fileInput.getExcelFilePath());                   //for display word in the excel file
+		
+		
+		consoleOutput.displayFilterJobList(filterJob.getFilterJobList(fileInput.getJob(),employeeList));    //taking the job name from user and display the fullName of employee for that job
+		
+	}
+	
+	
+	
+
+	
+	
+>>>>>>> Stashed changes
 
 }

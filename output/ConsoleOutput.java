@@ -5,12 +5,17 @@ import java.util.ArrayList;
 
 
 public class ConsoleOutput {
+<<<<<<< Updated upstream
 
+=======
+	
+>>>>>>> Stashed changes
 	/*
 	 *  displayFilterJob Method Display Employee Details Filter by job
 	 */
 
 	public void displayFilterJobList(ArrayList<String> employeeList) {
+<<<<<<< Updated upstream
 
 		for(String employee:employeeList) {                 //iterating each employee and display the full name of employee
 			System.out.println("FullName : " + employee);
@@ -29,6 +34,16 @@ public class ConsoleOutput {
 		}
 		
 	}
+=======
+		
+		for(String employee:employeeList) {                 //iterating each employee and display the full name of employee
+			System.out.println("FullName : " + employee);
+			
+		}
+	}
+
+
+>>>>>>> Stashed changes
 
 
 

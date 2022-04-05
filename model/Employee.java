@@ -17,6 +17,7 @@ public class Employee {
 
 
 
+<<<<<<< Updated upstream
 	public int getId() {
 		return id;
 	}
@@ -29,6 +30,8 @@ public class Employee {
 
 
 
+=======
+>>>>>>> Stashed changes
 	public String getFirstName() {
 		return firstName;
 	}
@@ -80,6 +83,7 @@ public class Employee {
 
 
 
+<<<<<<< Updated upstream
 	public Employee(int id, String firstName, String lastName, String city, ArrayList<String> education, String job) {
 		
 		this.id = id;
@@ -92,6 +96,8 @@ public class Employee {
 
 
 
+=======
+>>>>>>> Stashed changes
 	@Override
 	public String toString() {
 		return "Employee [firstName=" + firstName + ", lastName=" + lastName + ", city=" + city + ", education="

@@ -12,7 +12,11 @@ public class Filter {
 	@SuppressWarnings("unlikely-arg-type")
 	public ArrayList<String> getFilterJobList(String job,ArrayList<Employee> empList){
 
+<<<<<<< Updated upstream
                boolean result=false;
+=======
+
+>>>>>>> Stashed changes
 		ArrayList<String> employeeList=new ArrayList<String>();                     //EmployeList For  Storing employee who's job is match the job taking from user
 		for(Employee employee:empList){                                             //iterating empList 
 			
@@ -20,6 +24,7 @@ public class Filter {
 				String firstName=employee.getFirstName();                             //get the employee firstName 
 				String lastName=employee.getLastName();                               //get the employee LastName
 				employeeList.add(firstName+" "+lastName);                             //concat the firstName And lastName and stored in the employeeList
+<<<<<<< Updated upstream
 				result=true;
 			}
 			
@@ -28,6 +33,17 @@ public class Filter {
 			System.out.println("JobProfile Not Found");
 		}
 		
+=======
+				
+			}
+			
+		}
+
+		if(!empList.contains(job)) {                                                 //if User Job Input not equals empList then these condition become true
+			System.out.println("JobProfile Not Found");
+			
+		}
+>>>>>>> Stashed changes
 
 		return employeeList;                                                        
 	}
