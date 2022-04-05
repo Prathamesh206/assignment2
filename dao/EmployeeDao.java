@@ -19,8 +19,8 @@ public class EmployeeDao {
 	final int LASTNAME=2;
 	final int CITY =3;
 	final int JOB=4;
-	final int EXITING_FIRSTNAME=5;
-	final int EXITING_LASTNAME=6;
+	final int EXISTING_FIRSTNAME=5;
+	final int EXISTING_LASTNAME=6;
 
 
 	Connection connection=DBConnection.getConnection();
@@ -48,8 +48,8 @@ public class EmployeeDao {
 				employeeStatment.setString(LASTNAME, employee.getLastName());
 				employeeStatment.setString(CITY, employee.getCity());
 				employeeStatment.setString(JOB, employee.getJob());
-				employeeStatment.setString(EXITING_FIRSTNAME, employee.getFirstName());
-				employeeStatment.setString(EXITING_LASTNAME, employee.getLastName());
+				employeeStatment.setString(EXISTING_FIRSTNAME, employee.getFirstName());
+				employeeStatment.setString(EXISTING_LASTNAME, employee.getLastName());
 				int rowInserted=employeeStatment.executeUpdate();
 				
 				if(rowInserted>0) {                                                                      
