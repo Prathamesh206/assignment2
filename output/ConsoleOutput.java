@@ -28,12 +28,22 @@ int count=1;
 			
 			System.out.println( count++ + " "+"Insertion Successful");
 		}
-		else if(result==false) {
+		else  {
 			System.out.println("Unsuccessful");
 		}
 		
 	}
-
-
+	
+	public void  displayUpdate(boolean result) {
+		if(result==true) {
+			System.out.println(count++ + " "+"update succesfully");
+		}
+	}
+  
+	public void  displayUpToDate() {
+		
+			System.out.println("Data up to date");
+		
+	}
 
 }
