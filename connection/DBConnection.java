@@ -19,7 +19,7 @@ public class DBConnection {
 	public static Connection getConnection() {
 		Connection connection=null;
 		
-		String url="jdbc:mysql://localhost:3306/employee";
+		String url="jdbc:mysql://localhost:3306/employee_database";
 		String user="root";
 		String password="root";
 		try {
