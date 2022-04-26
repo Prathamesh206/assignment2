@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import in.sts.assignment2.model.Education;
 import in.sts.assignment2.model.Employee;
+import in.sts.assignment2.output.ConsoleOutput;
 
 
 
 public class EducationDao {
+	ConsoleOutput consoleOutput=new ConsoleOutput();
 
 	final static Logger log=Logger.getLogger(EducationDao.class);
 
@@ -21,6 +23,7 @@ public class EducationDao {
 	final int LASTNAME=3;
 	final int UPDATE_FIRSTNAME=3;
 	final int UPDATE_EMPID=2;
+	final int DELETE_EDUCATION=2;
 	/*
 	 * 
 	 *
@@ -69,7 +72,7 @@ public class EducationDao {
 				try {
 					connection.rollback();
 				} catch (SQLException sqlException1) {
-					log.error("sqlException");
+					log.error("message" +sqlException1);
 
 				}
 				System.out.println("Data not inserted");
@@ -80,7 +83,7 @@ public class EducationDao {
 				try {
 					educationStatment.close();
 				} catch (SQLException sqlException) {
-					log.error("sql Exception");
+					log.error("message"+ sqlException);
 				}
 			}
 		}
@@ -115,7 +118,7 @@ public class EducationDao {
 
 		} catch (SQLException sqlException) {
 
-			System.out.println(sqlException);
+			log.error("message" + sqlException);
 		}
 		return educations;
 
@@ -147,41 +150,41 @@ public class EducationDao {
 
 		} catch (SQLException sqlException) {
 
-			System.out.println(sqlException);
+		  log.error("message" +sqlException);
 		}
 		return educations;
 
 	}
 
 	/*
-	 * delete method for delete the education from the database
+	 * delete method for delete the education from the database and insert the new education in it.
 	 * 
 	 */
-	public boolean delete(Connection connection,int empid,ArrayList<Employee> jsonEmployeeList) {
+	public boolean delete(Connection connection,int empid,ArrayList<Employee> employeeList) {
 		ArrayList<Education> dataBaseEducationList=getAllEducations(connection);
 		String deleteQuery="delete from education_data where empid=? and education=?";
 
 		try {
 
 			for(Education dataBaseEducation:dataBaseEducationList) {
-				for(Employee jsonemployee:jsonEmployeeList) {
+				for(Employee employee:employeeList) {
 					int count=1;
 					for(int i=0;i<=1;i++) {
 
 
-						String firstName=jsonemployee.getFirstName()+count;
-						String lastName=jsonemployee.getLastName();
+						String firstName=employee.getFirstName()+count;
+						String lastName=employee.getLastName();
 						count++;
-						if(firstName.equals(dataBaseEducation.getFirstname()) && lastName.equals(dataBaseEducation.getLastName()) && !jsonemployee.getEducation().get(i).equals(dataBaseEducation.getEducation())) {
+						if(firstName.equals(dataBaseEducation.getFirstname()) && lastName.equals(dataBaseEducation.getLastName()) && !employee.getEducation().get(i).equals(dataBaseEducation.getEducation())) {
 							PreparedStatement deleteStatement=connection.prepareStatement(deleteQuery);
 							deleteStatement.setInt(EMP_ID,dataBaseEducation.getEmpid());
 
-							deleteStatement.setString(2,dataBaseEducation.getEducation());
+							deleteStatement.setString(DELETE_EDUCATION,dataBaseEducation.getEducation());
 
-							if(jsonemployee.getEducation().get(i)!=null) {
+							if(employee.getEducation().get(i)!=null) {
 								ArrayList<String> setEducation=new ArrayList<String>();
-								setEducation.add(jsonemployee.getEducation().get(i));
-								insert(dataBaseEducation.getEmpid(),setEducation,connection,dataBaseEducation.getFirstname(),dataBaseEducation.getLastName(),true);
+								setEducation.add(employee.getEducation().get(i));
+								consoleOutput.displayUpdate(false,insert(dataBaseEducation.getEmpid(),setEducation,connection,dataBaseEducation.getFirstname(),dataBaseEducation.getLastName(),true));
 							}
 							int result=deleteStatement.executeUpdate();
 							if(result>0) {
@@ -197,7 +200,7 @@ public class EducationDao {
 		}
 		catch (SQLException sqlExcpeption) {
 			// TODO Auto-generated catch block
-			log.error("sql Excpetion");
+			log.error("message" +sqlExcpeption);
 		}
 
 		return false;
