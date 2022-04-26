@@ -23,7 +23,7 @@ public class ConsoleOutput {
 	public void displayInsertion(boolean result) {
  
 	
-		if(result==true)
+		if(result)
 		{
 			
 			System.out.println( count++ + " "+"Insertion Successful");
@@ -35,10 +35,10 @@ public class ConsoleOutput {
 	}
 	
 	public void  displayUpdate(boolean employeeUpdate,boolean deleteUpdate) {
-		if(employeeUpdate==true) {
+		if(employeeUpdate) {
 			System.out.println(count++ + " "+"employee update succesfully");
 		}
-		else if(deleteUpdate==true) {
+		else if(deleteUpdate) {
 			System.out.println(count++ + " "+"education update succesfully");
 		}
 	}
