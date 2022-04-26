@@ -99,7 +99,7 @@ public class EmployeeDao {
 
 						for(String education:employee.getEducation()) {
 							for(Education getEducation:databaseEducations) {
-								if(education.equals(getEducation.getEducation())){
+								if(education.equals(getEducation.getEducation())){          //if 
 									continue;
 								}else if(!databaseJob.equals(employee.getJob()) || !databaseCity.equals(employee.getCity())){
 									flag=true;
@@ -114,10 +114,10 @@ public class EmployeeDao {
 
 					}
 
-
+                                             //else it will comes into else block and delete the education from the education table
 					else {
 						educationDao.delete(connection,empId,employeeList);
-//						consoleOutput.displayUpToDate();
+
 					}
 
 
