@@ -1,4 +1,5 @@
 
+
 package in.sts.assignemt2.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,11 +15,7 @@ import in.sts.assignment2.output.ConsoleOutput;
 
 public class EmployeeDao {
 	final static Logger log=Logger.getLogger(EmployeeDao.class);
-
-	EducationDao eduactionDao=new EducationDao();
-	ConsoleOutput consoleOutput=new ConsoleOutput();
-
-	ArrayList<Employee>  getjsonEmployeeList=new ArrayList<Employee>();
+	
 	final int FIRSTNAME=1;
 	final int LASTNAME=2;
 	final int CITY =3;
@@ -31,7 +28,8 @@ public class EmployeeDao {
 	final int UPDATE_LAST_NAME=4;
 
 	Connection connection=DBConnection.getConnection();
-
+	EducationDao educationDao=new EducationDao();
+	ConsoleOutput consoleOutput=new ConsoleOutput();
 	/* 
 	 * 
 	 * 
@@ -42,9 +40,9 @@ public class EmployeeDao {
 
 
 	@SuppressWarnings("resource")
-	public void upsert(ArrayList<Employee> jsonEmployeeList) {
-		getjsonEmployeeList.addAll(jsonEmployeeList);
-		EducationDao educationDao=new EducationDao();
+	public void upsert(ArrayList<Employee> employeeList) {
+		//		getjsonEmployeeList.addAll(jsonEmployeeList);
+
 		PreparedStatement preparedStatement=null;
 		int empId=0;
 		String databaseJob=null;
@@ -59,7 +57,7 @@ public class EmployeeDao {
 
 		try {
 			connection.setAutoCommit(false);                                                                //set AutoCommit false
-			for(Employee employee:jsonEmployeeList) {                                                      //iterating employee from jsonEmployee List
+			for(Employee employee:employeeList) {                                                      //iterating employee from jsonEmployee List
 
 				preparedStatement=connection.prepareStatement(insertquery);            
 				preparedStatement.setString(FIRSTNAME, employee.getFirstName());
@@ -103,23 +101,27 @@ public class EmployeeDao {
 							for(Education getEducation:databaseEducations) {
 								if(education.equals(getEducation.getEducation())){
 									continue;
-								}else {
+								}else if(!databaseJob.equals(employee.getJob()) || !databaseCity.equals(employee.getCity())){
 									flag=true;
 								}
 								count++;
 							}
 						}
 					}
-					if(flag==true) {
+					if(flag) {
 						//update method for update the  database data and if changes are found the file
-						consoleOutput.displayUpdate(update(employee.getCity(),employee.getJob(),employee.getFirstName(),employee.getLastName(),empId,connection,employee.getEducation()));	
+						consoleOutput.displayUpdate(update(employee.getCity(),employee.getJob(),employee.getFirstName(),employee.getLastName(),empId,connection,employee.getEducation()),false);
+
 					}
 
-					//if no update in the file then comes into the else block
-				}else {
-					consoleOutput.displayUpToDate();
-				}
 
+					else {
+						educationDao.delete(connection,empId,employeeList);
+//						consoleOutput.displayUpToDate();
+					}
+
+
+				}
 
 			}
 
@@ -136,10 +138,10 @@ public class EmployeeDao {
 				}
 			}
 			catch (SQLException sqlException1) {
-				sqlException1.printStackTrace();
+				log.error("message"+sqlException1);
 
 			}
-			sqlException.printStackTrace();
+			log.error("message" + sqlException);
 			System.out.println("Data not inserted");
 		}finally {
 			if(connection!=null) {
@@ -147,7 +149,7 @@ public class EmployeeDao {
 					connection.close();
 					preparedStatement.close();
 				} catch (SQLException sqlException) {
-					sqlException.printStackTrace();
+					log.error("message" +sqlException);
 				}
 			}
 		}
@@ -194,7 +196,7 @@ public class EmployeeDao {
 			return dataBaseEmployeeList;
 		} catch (SQLException sqlException) {
 			// TODO Auto-generated catch block
-			log.error("sql exception");
+			log.error("message" + sqlException);
 		}
 		return null; 
 
@@ -207,7 +209,7 @@ public class EmployeeDao {
 	 */
 
 	public boolean update(String city,String job,String firstname,String lastname,int empId,Connection connection,ArrayList<String> educations) {
-		EducationDao educationDao=new EducationDao();
+
 		PreparedStatement preparedStatement=null;
 		String updateQuery="update employee_data set city=?,job=? where firstname =?and lastname=?";
 		try {
@@ -217,7 +219,10 @@ public class EmployeeDao {
 			preparedStatement.setString(UPDATE_FIRST_NAME,firstname);
 			preparedStatement.setString(UPDATE_LAST_NAME, lastname);
 			int updateRow=preparedStatement.executeUpdate();
-			educationDao.delete(connection,empId,getjsonEmployeeList);
+
+
+
+			//			System.out.println("updated");
 			if(updateRow>0) {
 				return true;
 			}
@@ -225,13 +230,18 @@ public class EmployeeDao {
 
 		catch (SQLException sqlException) {
 
-			log.error("sql Exception");
+			log.error("message" +sqlException);
 		}
 		return false;
 
 
 	}
 }	
+
+
+
+
+
 
 
 
