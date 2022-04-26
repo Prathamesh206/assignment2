@@ -9,7 +9,7 @@ public class ConsoleOutput {
 	/*
 	 *  displayFilterJob Method Display Employee Details Filter by job
 	 */
-int count=1;
+        int count=1;
 	public void displayFilterJobList(ArrayList<String> employeeList) {
 
 		for(String employee:employeeList) {                 //iterating each employee and display the full name of employee
@@ -34,9 +34,12 @@ int count=1;
 		
 	}
 	
-	public void  displayUpdate(boolean result) {
-		if(result==true) {
-			System.out.println(count++ + " "+"update succesfully");
+	public void  displayUpdate(boolean employeeUpdate,boolean deleteUpdate) {
+		if(employeeUpdate==true) {
+			System.out.println(count++ + " "+"employee update succesfully");
+		}
+		else if(deleteUpdate==true) {
+			System.out.println(count++ + " "+"education update succesfully");
 		}
 	}
   
