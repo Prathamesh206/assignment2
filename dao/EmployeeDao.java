@@ -114,7 +114,7 @@ public class EmployeeDao {
 
 					}
 
-                                             //else it will comes into else block and delete the education from the education table
+                                             //else it will comes into else block and delete the education from the education table if education are not match
 					else {
 						educationDao.delete(connection,empId,employeeList);
 
