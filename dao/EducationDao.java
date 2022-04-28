@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import in.sts.assignment2.model.Education;
-import in.sts.assignment2.model.Employee;
 import in.sts.assignment2.output.ConsoleOutput;
 
 
@@ -17,13 +16,8 @@ public class EducationDao {
 	final static Logger log=Logger.getLogger(EducationDao.class);
 
 	final int EMP_ID=1;
-	final int EDUCATION=4;
-	final int UPDATE_EDUCATION=1;
-	final int FIRSTNAME=2;
-	final int LASTNAME=3;
-	final int UPDATE_FIRSTNAME=3;
-	final int UPDATE_EMPID=2;
-	final int DELETE_EDUCATION=2;
+	final int EDUCATION=2;
+	
 	/*
 	 * 
 	 *
@@ -32,27 +26,18 @@ public class EducationDao {
 	 * 
 	 */
 
-	public  boolean insert(int empid,ArrayList<String> educations,Connection connection,String firstName,String lastName,boolean result) {        //insert education method for insert the education in the database
+	public  boolean insert(int empid,ArrayList<String> educations,Connection connection) {        //insert education method for insert the education in the database
 
 		PreparedStatement educationStatment=null;
 		int count=1;
 		int rowInserted=0;
 		try {
 
-			String query="insert into education_data values(educationID,?,?,?,?)";
+			String query="insert into education_data values(educationID,?,?)";
 			educationStatment=connection.prepareStatement(query);
 			educationStatment.setInt(EMP_ID,empid);
 
 			for(String education:educations) {
-				if(result==true) {
-					educationStatment.setString(FIRSTNAME, firstName);
-					educationStatment.setString(LASTNAME, lastName);
-
-				}
-				else if(result==false){
-					educationStatment.setString(FIRSTNAME, firstName + count);
-					educationStatment.setString(LASTNAME, lastName);
-				}
 
 				educationStatment.setString(EDUCATION, education);
 				rowInserted =educationStatment.executeUpdate();
@@ -108,11 +93,10 @@ public class EducationDao {
 			ResultSet educationSet=preparedStatement.executeQuery();
 			while(educationSet.next()) {
 				int id=educationSet.getInt("empid");
-				String firstName=educationSet.getString("firstname");
-				String lastName=educationSet.getString("lastname");
+
 
 				education=	educationSet.getString("education");
-				Education educationModel=new Education(id,firstName,lastName,education);
+				Education educationModel=new Education(id,education);
 				educations.add(educationModel);
 			}
 
@@ -126,12 +110,12 @@ public class EducationDao {
 
 	/*
 	 * 
-	 * getEducations method for fetch the educationData from the database
+	 * getEducations method for fetch on the educationData from the database
 	 */
 
-	public ArrayList<Education> getEducations(Connection connection,int empId) {
+	public ArrayList<String> getEducations(Connection connection,int empId) {
 		String education=null;                      
-		ArrayList <Education> educations=new ArrayList<Education>();                 
+		ArrayList <String> educations=new ArrayList<String>();                 
 		PreparedStatement  preparedStatement=null;
 		String educationQuery="select * from education_data  where empid = ?";                                         
 		try {
@@ -140,17 +124,15 @@ public class EducationDao {
 			ResultSet educationSet=preparedStatement.executeQuery();
 			while(educationSet.next()) {
 				int id=educationSet.getInt("empid");
-				String firstName=educationSet.getString("firstname");
-				String lastName=educationSet.getString("lastname");
 
 				education=	educationSet.getString("education");
-				Education educationModel=new Education(id,firstName,lastName,education);
-				educations.add(educationModel);
+
+				educations.add(education);
 			}
 
 		} catch (SQLException sqlException) {
 
-		  log.error("message" +sqlException);
+			log.error("message" +sqlException);
 		}
 		return educations;
 
@@ -160,50 +142,29 @@ public class EducationDao {
 	 * delete method for delete the education from the database and insert the new education in it.
 	 * 
 	 */
-	public boolean delete(Connection connection,int empid,ArrayList<Employee> employeeList) {
-		ArrayList<Education> dataBaseEducationList=getAllEducations(connection);
-		String deleteQuery="delete from education_data where empid=? and education=?";
+	public void  delete(Connection connection,int empid,ArrayList<String> newEducations) {
 
 		try {
 
-			for(Education dataBaseEducation:dataBaseEducationList) {
-				for(Employee employee:employeeList) {
-					int count=1;
-					for(int i=0;i<=1;i++) {
+			String deleteQuery="delete from education_data where empid=? ";
 
-
-						String firstName=employee.getFirstName()+count;
-						String lastName=employee.getLastName();
-						count++;
-						if(firstName.equals(dataBaseEducation.getFirstname()) && lastName.equals(dataBaseEducation.getLastName()) && !employee.getEducation().get(i).equals(dataBaseEducation.getEducation())) {
-							PreparedStatement deleteStatement=connection.prepareStatement(deleteQuery);
-							deleteStatement.setInt(EMP_ID,dataBaseEducation.getEmpid());
-
-							deleteStatement.setString(DELETE_EDUCATION,dataBaseEducation.getEducation());
-
-							if(employee.getEducation().get(i)!=null) {
-								ArrayList<String> setEducation=new ArrayList<String>();
-								setEducation.add(employee.getEducation().get(i));
-								consoleOutput.displayUpdate(false,insert(dataBaseEducation.getEmpid(),setEducation,connection,dataBaseEducation.getFirstname(),dataBaseEducation.getLastName(),true));
-							}
-							int result=deleteStatement.executeUpdate();
-							if(result>0) {
-								return true;
-							}
-						}
-
-					}
-				}
+			PreparedStatement deleteStatement=connection.prepareStatement(deleteQuery);
+			deleteStatement.setInt(EMP_ID,empid);  
+			int result=deleteStatement.executeUpdate();
+			if(result>0) {
+				consoleOutput.displayUpdate(false,insert(empid,newEducations,connection),empid);
+				
 			}
-
-
+			//				
 		}
+
+
 		catch (SQLException sqlExcpeption) {
 			// TODO Auto-generated catch block
 			log.error("message" +sqlExcpeption);
 		}
 
-		return false;
+	
 
 
 	}
@@ -212,4 +173,6 @@ public class EducationDao {
 
 
 }
+
+
 
