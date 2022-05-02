@@ -63,7 +63,7 @@ public class EmployeeDao {
 				int rowInserted=preparedStatement.executeUpdate();
 
 				//fetch the id from the database and pass to the educationDao insert method
-				Employee dataBaseEmployee =getEmployeeList(employee.getFirstName(),employee.getLastName());
+				Employee dataBaseEmployee =getEmployee(employee.getFirstName(),employee.getLastName());
 
 				ArrayList<String> databaseEducations=educationDao.getEducations(connection,dataBaseEmployee.getId());   
 
@@ -138,7 +138,7 @@ public class EmployeeDao {
 	 */
 
 
-	public  Employee getEmployeeList(String FirstName,String LastName) {
+	public  Employee getEmployee(String FirstName,String LastName) {
 		//		ArrayList<Employee> dataBaseEmployeeList=new ArrayList<Employee>();
 		Employee employee = null;
 		int id = 0;
