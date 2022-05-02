@@ -1,4 +1,5 @@
 
+
 package in.sts.assignemt2.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,8 +42,7 @@ public class EmployeeDao {
 	public void upsert(ArrayList<Employee> employeeList) {
 
 		PreparedStatement preparedStatement=null;
-		boolean update=true;
-		boolean dataUptoDate=true;
+
 		//   for Insert data into employee_data & eduaction_data if the firstName and lastName not exist in database
 
 		String insertquery="INSERT INTO employee_data(firstname,lastname,city,job) SELECT * FROM (SELECT ? AS firstname, ? AS"        //insert query for insert the employee in the database if the employee is not present in the database
@@ -71,15 +71,10 @@ public class EmployeeDao {
 					//call the eduactionDao insert method in the employeeDao insert for inserting the educations in the database
 					consoleOutput.displayInsertion(educationDao.insert(dataBaseEmployee.getId(), employee.getEducation(),connection));
 
-					update=false;
-					dataUptoDate=false;
-
 				}
 
 				//if  firstName and lastName are same in the file and if any other changes are found in the file then comes into the else if block 
-				else if(!dataBaseEmployee.getJob().equals(employee.getJob()) || !dataBaseEmployee.getCity().equals(employee.getCity()) || !databaseEducations.equals(employee.getEducation()) && update==true){
-
-					dataUptoDate=false;
+				else if(!dataBaseEmployee.getJob().equals(employee.getJob()) || !dataBaseEmployee.getCity().equals(employee.getCity()) || !databaseEducations.equals(employee.getEducation()) ){
 
 					// This condition is use when the employee table updated
 					if(!dataBaseEmployee.getJob().equals(employee.getJob()) || !dataBaseEmployee.getCity().equals(employee.getCity())) {
@@ -97,14 +92,10 @@ public class EmployeeDao {
 
 				}
 
-			}
-			if(dataUptoDate) {
-				consoleOutput.displayUpToDate();
-			}
+				connection.commit();                                                                         //IF all the data are inserted in the  database then the data commit  else it will rollback the data
 
-			connection.commit();                                                                         //IF all the data are inserted in the  database then the data commit  else it will rollback the data
-
-		} 
+			} 
+		}
 		catch (SQLException sqlException) {
 			try {
 
@@ -206,6 +197,12 @@ public class EmployeeDao {
 
 	}
 }	
+
+
+
+
+
+
 
 
 
